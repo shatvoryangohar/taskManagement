@@ -19,12 +19,13 @@ public class UserManager {
     public void addUser(User user) {
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement("INSERT into user (name ,surname,email,password,type ) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = connection.prepareStatement("INSERT into user (name ,surname,email,password,type,picture_url ) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getPassword());
             preparedStatement.setString(5, user.getUserType().name());
+            preparedStatement.setString(6, user.getPictureUrl());
             preparedStatement.executeUpdate();
 
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
@@ -53,6 +54,7 @@ public class UserManager {
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setUserType(UserType.valueOf(resultSet.getString("type")));
+                user.setPictureUrl(resultSet.getString("picture_url"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -76,7 +78,7 @@ public class UserManager {
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setUserType(UserType.valueOf(resultSet.getString("type")));
-
+                user.setPictureUrl(resultSet.getString("picture_url"));
                 return user;
             }
         } catch (SQLException e) {
@@ -100,6 +102,7 @@ public class UserManager {
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setUserType(UserType.valueOf(resultSet.getString("type")));
+                user.setPictureUrl(resultSet.getString("picture_url"));
                 return user;
             }
         } catch (SQLException e) {

@@ -20,7 +20,7 @@
     <div style="width: 50% ;float: left">
         Add User:<br>
 
-        <form action="/userRegister" method="post">
+        <form action="/userRegister" method="post" enctype="multipart/form-data">
             <input type="text" name="name" placeholder="name"><br>
             <input type="text" name="surname" placeholder="surname"><br>
             <input type="email" name="email" placeholder="email"><br>
@@ -29,10 +29,11 @@
                 <option value="USER">USER</option>
                 <option value="MANAGER">MANAGER</option>
             </select><br>
+            <input type="file" name="image"><br>
             <input type="submit" value="Register">
         </form>
-    </div><br>
-
+    </div>
+    <br>
 
 
     <div style="width: 50%;float: left">
@@ -70,6 +71,7 @@
             <th>surname</th>
             <th>email</th>
             <th>type</th>
+            <th>picture_url</th>
         </tr>
         <%
             for (User user : users) {%>
@@ -81,6 +83,10 @@
             <td><%=user.getEmail()%>
             </td>
             <td><%=user.getUserType()%>
+            </td>
+            <td>
+                <%if (user.getPictureUrl() != null) {%>
+                <img src="/image?path=<%=user.getPictureUrl()%>" width="50"><%}%>
             </td>
 
 
